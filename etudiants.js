@@ -33,17 +33,28 @@ const coursesByStudent = [
     [3, [2, 3, 12]]
 ];
 
-
-
 function getStudentById(studentId) {
-    let studentName = 0;
   
     for (let i = 0; i < students.length; i++) {
       if (students[i][0] === studentId) {
+        return students[i][1];
       }
-      return students[i][1];
     }
   return inconnue;
   }
 
   console.log(getStudentById(55));
+
+
+  // function getCoursesById(coursesId) {
+  
+  //   for (let i = 0; i < courses.length; i++) {
+  //     if (courses[i][0] === coursesId) {
+  //       return courses[i][1];
+  //     }
+  //   }
+  // return inconnue;
+  // }
+
+  // console.log(getCoursesById(25));
+
