@@ -34,19 +34,16 @@ const coursesByStudent = [
 ];
 
 
-let studentId = 54;
-let studentName = getStudentById(studentId, students);
 
-function getStudentById(studentId, students) {
+function getStudentById(studentId) {
     let studentName = 0;
   
     for (let i = 0; i < students.length; i++) {
       if (students[i][0] === studentId) {
-        studentName = students[i][1];
       }
+      return students[i][1];
     }
-  
-    return studentName;
+  return inconnue;
   }
 
-console.log(studentName);
+  console.log(getStudentById(55));
