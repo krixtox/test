@@ -33,17 +33,17 @@ const coursesByStudent = [
     [3, [2, 3, 12]]
 ];
 
-function getStudentById(studentId) {
+// function getStudentById(studentId) {
   
-    for (let i = 0; i < students.length; i++) {
-      if (students[i][0] === studentId) {
-        return students[i][1];
-      }
-    }
-  return inconnue;
-  }
+//     for (let i = 0; i < students.length; i++) {
+//       if (students[i][0] === studentId) {
+//         return students[i][1];
+//       }
+//     }
+//   return "inconnu";
+//   }
 
-  console.log(getStudentById(55));
+//   console.log(getStudentById(55));
 
 
   // function getCoursesById(coursesId) {
@@ -53,8 +53,38 @@ function getStudentById(studentId) {
   //       return courses[i][1];
   //     }
   //   }
-  // return inconnue;
+  // return "inconnu";
   // }
 
   // console.log(getCoursesById(25));
 
+
+  function getRangesById(rangesId) {
+    for (let i = 0; i < ranges.length; i++) {
+      if (ranges[i][0] === rangesId) {
+        return ranges[i][1];
+      }
+    }
+    return "inconnu";
+  }
+  
+  function calculateMoyenne(ranges) {
+    let sum = 0;
+    for (let i = 0; i < ranges.length; i++) {
+      sum += ranges[i];
+    }
+    return (sum / ranges.length).toFixed(2)
+  }
+  
+  function getAverageById(rangesId) {
+    let ranges = getRangesById(rangesId);
+    if (ranges === "inconnu") {
+      return "inconnu";
+    }
+    let average = calculateMoyenne(ranges);
+    return average;
+  }
+  
+  let rangesId = 54;
+  let average = getAverageById(rangesId);
+  console.log(average);  
