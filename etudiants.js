@@ -89,37 +89,38 @@ function getAverageByStudId(sId){
     return moyEtudiant;
 
 }
-const display = '*';
-console.log(display.padEnd(50, '*'));
-console.log(`* Name${"".padEnd(18, ' ')}* Average${"".padEnd(15, ' ')} *`);
-console.log(display.padEnd(50, '*'));
+    const display = '*';
+    console.log(display.padEnd(50, '*'));
+    console.log("*" + centerStringInColumn(23, "Name") + "*" + centerStringInColumn(24, "Average") + "*"); console.log(display.padEnd(50, '*'));
 
-// console.log(getAverageByStudId(54))
+function showClassStudentsAverage(){
 
-    function showClassStudentsAverage(){
+    let studId = 0;
+    let stdname = "";
+    let stdavg = 0;
 
-    // Pour tous les étudiants
-    // 1°) chercher le nom de l'étudiant => getStudentById
-    // 2°) Calculer moyenne de l'étudiant => getAverageByStudId
-    // 3°) Afficher nom : moyenne  => A faire
-
-        let studId = 0;
-        let stdname = "";
-        let stdavg = 0;
-
-        for(let i=0; i < students.length; i++){
-            studId = students[i][0];
-            stdname = getStudentById(studId);
-            stdavg = getAverageByStudId(studId);
-            stdnotes = getRangesByStudId(studId);
-            if (stdnotes.length === 0) {
-                console.log(`* ${stdname.padEnd(22, ' ')}* Pas de notes${"".padEnd(10, ' ')} *`);
-            } else {
-                console.log(`* ${stdname.padEnd(22, ' ')}* ${stdavg.padEnd(22, ' ')} *`);
-            }
+    for(let i=0; i < students.length; i++){
+        studId = students[i][0];
+        stdname = getStudentById(studId);
+        stdavg = getAverageByStudId(studId);
+        stdnotes = getRangesByStudId(studId);
+        if (stdnotes.length === 0) {
+            console.log("*" + centerStringInColumn(22, stdname) + "*" + centerStringInColumn(25, "Pas de note") + "*");
+        } else {
+            console.log("*" + centerStringInColumn(22, stdname) + "*" + centerStringInColumn(25, stdavg) + "*");
         }
     }
+}
     
     showClassStudentsAverage();
 
-console.log(display.padEnd(50, '*'));
+    console.log(display.padEnd(50, '*'));
+
+
+    function centerStringInColumn(colWidth, str) {
+    let nbspacetoadd = (colWidth - str.length) / 2;
+    let leftstr = str.padStart(nbspacetoadd + str.length);
+    return leftstr.padEnd(colWidth);
+    }
+    
+    console.log("*" + centerStringInColumn(23, "hello") + "*" + centerStringInColumn(24, "world") + "*"); 
