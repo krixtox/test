@@ -33,58 +33,93 @@ const coursesByStudent = [
     [3, [2, 3, 12]]
 ];
 
-// function getStudentById(studentId) {
-  
-//     for (let i = 0; i < students.length; i++) {
-//       if (students[i][0] === studentId) {
-//         return students[i][1];
-//       }
-//     }
-//   return "inconnu";
-//   }
-
-//   console.log(getStudentById(55));
-
-
-  // function getCoursesById(coursesId) {
-  
-  //   for (let i = 0; i < courses.length; i++) {
-  //     if (courses[i][0] === coursesId) {
-  //       return courses[i][1];
-  //     }
-  //   }
-  // return "inconnu";
-  // }
-
-  // console.log(getCoursesById(25));
-
-
-  function getRangesById(rangesId) {
-    for (let i = 0; i < ranges.length; i++) {
-      if (ranges[i][0] === rangesId) {
-        return ranges[i][1];
-      }
+/**
+ * getStudentById
+ * Retourne le nom de l'étudient dont l'id est passé en paramètre
+ * @param {*} studId 
+ * @returns 
+ */
+function getStudentById(studId){
+    for(let i=0; i < students.length; i++){
+        if(students[i][0] === studId) {
+            return students[i][1];
+        }
     }
-    return "inconnu";
-  }
-  
-  function calculateMoyenne(ranges) {
-    let sum = 0;
-    for (let i = 0; i < ranges.length; i++) {
-      sum += ranges[i];
+    return "Inconnu"
+}
+
+
+function getCourseById(cId){
+    for(let i=0; i <courses.length; i++) {
+        if(courses[i][0] === cId) {
+            return courses[i][1];
+        }
     }
-    return (sum / ranges.length).toFixed(2)
-  }
-  
-  function getAverageById(rangesId) {
-    let ranges = getRangesById(rangesId);
-    if (ranges === "inconnu") {
-      return "inconnu";
+    return "inconnu"
+}
+
+function getRangesByStudId(sId) {
+    for (let i=0; i<ranges.length; i++){
+        if (ranges[i][0] === sId){
+            return ranges[i][1]
+        }
     }
-    let average = calculateMoyenne(ranges);
-    return average;
-  }
-  
-  let rangesId = 54;
-  let average = getAverageById(rangesId);
-  console.log(average);  
+    return []
+}
+
+function getAverage(notes){
+    let somme = 0;
+    for(let i=0; i < notes.length; i++){
+        somme += notes[i];
+    }
+    return (somme/notes.length).toFixed(2)
+}
+
+function getAverageByStudId(sId){
+
+    // 1°) Obtenir els notes notes de l'étudiant sId
+    let notesEtudiant = getRangesByStudId(sId);
+
+    // 2°) Calculer la moyenne à partir des notes obtenues en 1°)
+    let moyEtudiant = 0;
+    if(notesEtudiant.length > 0){
+        moyEtudiant = getAverage(notesEtudiant);
+    }
+
+    return moyEtudiant;
+
+}
+const display = '*';
+console.log(display.padEnd(50, '*'));
+console.log(`* Name${"".padEnd(18, ' ')}* Average${"".padEnd(15, ' ')} *`);
+console.log(display.padEnd(50, '*'));
+
+// console.log(getAverageByStudId(54))
+
+    function showClassStudentsAverage(){
+
+    // Pour tous les étudiants
+    // 1°) chercher le nom de l'étudiant => getStudentById
+    // 2°) Calculer moyenne de l'étudiant => getAverageByStudId
+    // 3°) Afficher nom : moyenne  => A faire
+
+        let studId = 0;
+        let stdname = "";
+        let stdavg = 0;
+
+        for(let i=0; i < students.length; i++){
+            studId = students[i][0];
+            stdname = getStudentById(studId);
+            stdavg = getAverageByStudId(studId);
+            stdnotes = getRangesByStudId(studId);
+            if (stdnotes.length === 0) {
+                console.log(`* ${stdname.padEnd(22, ' ')}* Pas de notes${"".padEnd(10, ' ')} *`);
+            } else {
+                console.log(`* ${stdname.padEnd(22, ' ')}* ${stdavg.padEnd(22, ' ')} *`);
+            }
+        }
+    }
+    
+    showClassStudentsAverage();
+
+console.log(display.padEnd(50, '*'));
