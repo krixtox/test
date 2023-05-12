@@ -124,3 +124,4 @@ function showClassStudentsAverage(){
     }
     
     console.log("*" + centerStringInColumn(23, "hello") + "*" + centerStringInColumn(24, "world") + "*"); 
+    
