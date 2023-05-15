@@ -18,11 +18,11 @@ const ranges = [
 // Table des cours
 // ***************
 const courses = [
-    [1, "algo"],
-    [2, "math"],
-    [3, "anglais"],
-    [12, "web"],
-    [25, "macramé"]
+    [1, "Algo"],
+    [2, "Math"],
+    [3, "Anglais"],
+    [12, "Web"],
+    [25, "Macramé"]
 ];
 
 // Table des cours par étudiant
@@ -39,6 +39,7 @@ const coursesByStudent = [
  * @param {*} studId 
  * @returns 
  */
+
 function getStudentById(studId) {
     for (let i = 0; i < students.length; i++) {
         if (students[i][0] === studId) {
@@ -107,12 +108,14 @@ function showClassStudentsAverage() {
         stdavg = getAverageByStudId(studId);
         stdnotes = getRangesByStudId(studId);
         if (stdnotes.length === 0) {
-            console.log("*" + centerStringInColumn(22, stdname) + "*" + centerStringInColumn(25, "Pas de note") + "*");
+            console.log("* " + stdname.padEnd(22, ' ') + "* " + "Pas de note".padEnd(23, ' ') + "*");
         } else {
-            console.log("*" + centerStringInColumn(22, stdname) + "*" + centerStringInColumn(25, stdavg) + "*");
+            console.log("* " + stdname.padEnd(22, ' ') + "* " + stdavg.padEnd(23, ' ') + "*");
         }
     }
 }
+
+// ******************************************************************************************************************************************
 
 showClassStudentsAverage();
 
@@ -130,42 +133,11 @@ function centerStringInColumn(colWidth, str) {
 console.log("*" + centerStringInColumn(23, "Prénom") + "*" + centerStringInColumn(24, "Matières") + "*");
 console.log(display1.padEnd(50, '*'));
 
-// function showStudentCourses() {
-//     let studId = 0;
-//     let stdname = "";
-
-//     for (let i = 0; i < students.length; i++) {
-//         studId = students[i][0];
-//         stdname = getStudentById(studId);
-//         let courses = [];
-
-//         for (let k = 0; k < coursesByStudent.length; k++) {
-//             if (coursesByStudent[k][0] === studId) {
-//                 let courseIds = coursesByStudent[k][1];
-//                 for (let j = 0; j < courseIds.length; j++) {
-//                     let courseId = courseIds[j];
-//                     let courseName = getCourseById(courseId);
-//                     courses.push(courseName);
-//                 }
-//                 break;
-//             }
-//         }
-
-//         if (courses.length === 0) {
-//             console.log("*" + centerStringInColumn(22, stdname) + "*" + centerStringInColumn(25, "Pas de matières") + "*");
-//         } else {
-//             console.log("*" + centerStringInColumn(22, stdname) + "*" + centerStringInColumn(25, courses.join(", ")) + "*");
-//         }
-//     }
-//     console.log(display1.padEnd(50, '*'));
-// }
-
-// showStudentCourses();
-
+// ******************************************************************************************************************************************
 
 function getStudentCoursesById(sId) {
-    for(let i=0; i< coursesByStudent.length; i++) {
-        if(coursesByStudent[i][0] === sId) {
+    for (let i = 0; i < coursesByStudent.length; i++) {
+        if (coursesByStudent[i][0] === sId) {
             return coursesByStudent[i][1];
         }
     }
@@ -174,41 +146,92 @@ function getStudentCoursesById(sId) {
 
 function getCourseNameById(courseId) {
     for (let i = 0; i < courses.length; i++) {
-      if (courseId === courses[i][0]) {
-        return courses[i][1];
-      }
+        if (courseId === courses[i][0]) {
+            return courses[i][1];
+        }
     }
     return "";
-  }
-  
-  function convertCourses(stuCoursesId) {
+}
+
+function convertCourses(stuCoursesId) {
     let result = "";
     for (let i = 0; i < stuCoursesId.length; i++) {
-      const courseName = getCourseNameById(stuCoursesId[i]);
-      if (i > 0) {
-        result += ", ";
-      }
-      result += courseName;
+        let courseName = getCourseNameById(stuCoursesId[i]);
+        result += courseName;
+        if (i < stuCoursesId.length - 1) {
+            result += ", ";
+        }
     }
     return result;
-  }
-  
-  let output = "";
-  for (let i = 0; i < students.length; i++) {
-    let studId = students[i][0];
-    let studname = students[i][1];
-    let stuCoursesId = getStudentCoursesById(studId);
-    const coursesName = convertCourses(stuCoursesId);
-  
-    if (coursesName.length === 0) {
-      output += "*" + centerStringInColumn(22, studname) + "*" + centerStringInColumn(25, "Pas de matières") + "*" + "\n";
-    } else {
-      output += "*" + centerStringInColumn(22, studname) + "*" + centerStringInColumn(25, coursesName) + "*" + "\n";
+}
+
+function showCoursesByStudent(students) {
+    let output = "";
+
+    for (let i = 0; i < students.length; i++) {
+        let studId = students[i][0];
+        let studname = students[i][1];
+        let stuCoursesId = getStudentCoursesById(studId);
+        let coursesName = convertCourses(stuCoursesId);
+
+        if (coursesName.length === 0) {
+            output += "* " + studname.padEnd(22, ' ') + "* " + "Pas de matières".padEnd(23, ' ') + "*" + "\n";
+        } else {
+            output += "* " + studname.padEnd(22, ' ') + "* " + coursesName.padEnd(23, ' ') + "*" + "\n";
+        }
+        if (i === students.length - 1) {
+            output = output.trim();
+        }
     }
-    if (i === students.length - 1) {
-        output = output.trim();
-      }
-    }
-      
+
+    return output;
+}
+
+let output = showCoursesByStudent(students);
 console.log(output);
 console.log(display1.padEnd(50, '*'));
+console.log(display2.padEnd(50, ' '));
+
+// ******************************************************************************************************************************************
+
+function getStudentsByCourseId(cId) {
+    let studentsList = [];
+
+    for (let i = 0; i < coursesByStudent.length; i++) {
+        if (coursesByStudent[i][1].includes(cId)) {
+            let studentId = coursesByStudent[i][0];
+            let studentName = getStudentById(studentId);
+            studentsList.push(studentName);
+        }
+    }
+
+    return studentsList;
+}
+
+console.log(display1.padEnd(50, '*'));
+console.log("*" + centerStringInColumn(23, "Matière") + "*" + centerStringInColumn(24, "Prénoms") + "*");
+console.log(display1.padEnd(50, '*'));
+
+function showStudentsByCourse(courses) {
+    let listStudByCourse = "";
+
+    for (let i = 0; i < courses.length; i++) {
+        let cId = courses[i][0];
+        let courseName = courses[i][1];
+        let studentsList = getStudentsByCourseId(cId);
+
+        if (studentsList.length === 0) {
+            listStudByCourse += "* " + courseName.padEnd(22, ' ') + "* " + "Pas d'étudiants".padEnd(23, ' ') + "*\n";
+        } else {
+            listStudByCourse += "* " + courseName.padEnd(22, ' ') + "* " + studentsList.join(", ").padEnd(23, ' ') + "*\n";
+        }
+    }
+
+    listStudByCourse += display1.padEnd(50, '*');
+    listStudByCourse = listStudByCourse.trim();
+
+    return listStudByCourse;
+}
+
+const StudentListByCourse = showStudentsByCourse(courses);
+console.log(StudentListByCourse);
