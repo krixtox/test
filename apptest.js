@@ -228,7 +228,7 @@ function showStudentsByCourse() {
     }
 
     listStudByCourse += display1.padEnd(50, '*');
-    listStudByCourse = listStudByCourse.trim();
+    listStudByCourse = listStudByCourse;
 
     return listStudByCourse;
 }
