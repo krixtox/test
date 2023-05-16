@@ -93,31 +93,31 @@ function getAverageByStudId(sId) {
 const display1 = '*';
 const display2 = ' ';
 
-console.log(display1.padEnd(50, '*'));
-console.log("*" + centerStringInColumn(23, "Prénom") + "*" + centerStringInColumn(24, "Moyenne") + "*"); console.log(display1.padEnd(50, '*'));
-
 function showClassStudentsAverage() {
-
-    let studId = 0;
-    let stdname = "";
-    let stdavg = 0;
-
-    for (let i = 0; i < students.length; i++) {
-        studId = students[i][0];
-        stdname = getStudentById(studId);
-        stdavg = getAverageByStudId(studId);
-        stdnotes = getRangesByStudId(studId);
+    let display1 = '*'.padEnd(50, '*');
+    let display2 = ' '.padEnd(50, ' ');
+  
+    console.log(display1);
+    console.log("*" + centerStringInColumn(23, "Prénom") + "*" + centerStringInColumn(24, "Moyenne") + "*");
+    console.log(display1);
+  
+    students.forEach(function(student) {
+        let studId = student[0];
+        let stdname = getStudentById(studId);
+        let stdavg = getAverageByStudId(studId);
+        let stdnotes = getRangesByStudId(studId);
+  
         if (stdnotes.length === 0) {
             console.log("* " + stdname.padEnd(22, ' ') + "* " + "Pas de note".padEnd(23, ' ') + "*");
         } else {
             console.log("* " + stdname.padEnd(22, ' ') + "* " + stdavg.padEnd(23, ' ') + "*");
         }
-    }
-}
-
-// ******************************************************************************************************************************************
+    });
+  }
 
 showClassStudentsAverage();
+
+// ******************************************************************************************************************************************
 
 console.log(display1.padEnd(50, '*'));
 console.log(display2.padEnd(50, ' '));
@@ -228,7 +228,7 @@ function showStudentsByCourse() {
     }
 
     listStudByCourse += display1.padEnd(50, '*');
-    listStudByCourse = listStudByCourse;
+    listStudByCourse = listStudByCourse.trim();
 
     return listStudByCourse;
 }
